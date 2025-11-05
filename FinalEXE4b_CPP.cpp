@@ -20,7 +20,7 @@
 
 using namespace std;
 #define  PORT 8000
-#define  IP "127.0.0.1"
+#define  IP "127.0.0.1" // edit if using different ip
 
 int sock = 0;
 void movement(int, int);
@@ -48,10 +48,20 @@ void read_socket(){
 		printf("received: %c\n",cmd);
 
 		// use cmd to control the robot movement
-
+		if(cmd == 'u') {
+			movement(100, 0); // forward
+		} else if(cmd == 'd') {
+			movement(-100, 0); // backward
+		} else if(cmd == 'l') {
+			movement(100, 1); // left
+		} else if(cmd == 'r') {
+			movement(100, -1); // right
+		} else if(cmd == 's') {
+			movement(0, 0); // stop
+		}
 		
 		//clean the buffer with memset
-		
+		memset(buffer, 0, sizeof(buffer));
 	}
 	
 }
@@ -67,20 +77,19 @@ int main(){
 	while(serialDataAvail(kobuki) != -1)
 	{
 		// Read the sensor data.
-
+		readData();
 
 		// Construct an string data like 'b0c0d0', you can use "sprintf" function. You can also define your own data protocal.
-
+		sprintf(buffer, "b%dc%dd%d", bumper, cliff, drop);
 
 		// Send the sensor data through the socket
+		send(sock, buffer, strlen(buffer), 0);
 
 		// Clear the buffer
+		memset(buffer, 0, sizeof(buffer));
 
 		// You can refer to the code in previous labs. 
 	}
-	serialClose(kobuki);
-	
-	return(0);
 }
 
 void movement(int sp, int r){
