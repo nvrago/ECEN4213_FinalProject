@@ -20,7 +20,7 @@
 
 using namespace std;
 #define  PORT 8000
-#define  IP "127.0.0.1"
+#define  IP "127.0.0.1" // edit if using different ip
 
 int sock = 0;
 void movement(int, int);
@@ -48,10 +48,20 @@ void read_socket(){
 		printf("received: %c\n",cmd);
 
 		// use cmd to control the robot movement
-
+		if(cmd == 'u') {
+			movement(100, 0); // forward
+		} else if(cmd == 'd') {
+			movement(-100, 0); // backward
+		} else if(cmd == 'l') {
+			movement(100, 1); // left
+		} else if(cmd == 'r') {
+			movement(100, -1); // right
+		} else if(cmd == 's') {
+			movement(0, 0); // stop
+		}
 		
 		//clean the buffer with memset
-		
+		memset(buffer, 0, sizeof(buffer));
 	}
 	
 }
