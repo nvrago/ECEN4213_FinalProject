@@ -1,60 +1,102 @@
-
+<!DOCTYPE html>
 
 <html>
   <head>
-    <!-- define your title  -->
+    <title>ECEN4213 IoT Camera Dashboard</title>
 
     <style>
 		body {
+      font-family: Arial, sans-serif ;
 			text-align: center;
+      margin: 0;
+      padding: 20px;
 		}
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .video-feed {
+      margin-bottom: 20px;
+    }
+    .sensor-status, .dpad {
+      margin-bottom: 20px;
+    }
+    .sensor-status button {
+      width: 120;
+      height: 50px;
+      font-size: 16px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+    .dpad {
+      display: inline-block;
+    }
+    .dpad-row {
+      display: flex;
+      justify-content: center;
+      margin: 5px 0;
+    }
+    .dpad-row button {
+      width: 150px;
+      height: 80px;
+      font-size: 24px;
+      margin: 0 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .dpad-center {
+      width: 80px;
+      height: 80px;
+      font-size: 24px;
+      margin: 0 20px;
+      border-radius: 50%;
+      background-color: cornsilk;
+    }
+    .dpad-center-controls {
+      width: 120px;
+      height: 80px;
+      font-size: 24px;
+      margin: 0 10px;
+      border-radius: 25%;
+      background-color: cornsilk;
+    }
     </style>
   </head>
 
   <body>
 
-      <!-- image display module -->
-      <h1>Live Streaming</h1>
-      <img src="../static/img name.png" height="35%">
-
-      <hr>
-
-      <!-- sensor status display module -->
-      <div>
-        <!-- module 2 sensor tag: Bumper, wheelDrop, Cilff -->	
-        <!-- sensor tag: Bumper, wheelDrop, Cilff -->
-        <input style="font-size:40;height:150; width:300;" type = "button" id = "disbutton" value = "OFF" />
-        <!-- add two more buttons here -->
-
-      </div>
-
-      <div>
-        <!-- module 2 sensor status: on, off,… -->
-        <input style="font-size:XX;height:XX; width:XX;" type = "button" id = "but1" value = "XX" />
-        <!-- add two more buttons here -->
-      </div>
-        
+    <div class="container">
+      <!-- Live cam stream -->
+       <div class="video-feed">
+        <h2>Live Camera Stream</h2>
+        <img src="camera_stream_url.jpg" alt="Live Camera" width="100%" />
+       </div>
+    <!-- /div -->
+       <!-- Sensor status buttons -->
+        <div class="sensor-status">
+        <h2>Sensor Status</h2>
+          <button id="bumper" style="background-color:cornsilk;">Bumper: OFF</button>
+          <button id="wheelDrop" style="background-color:cornsilk;">Wheel Drop: OFF</button>
+          <button id="cilff" style="background-color:cornsilk;">Cilff: OFF</button>
+        </div>        
 
 
       <!-- D-pad module -->
-      <div>
-          <div>
-            <!-- up button -->
-          <input style="font-size:50;height:200px; width:200px;" type = "button" id = "upbutton" value = "Up" />
-          
-          </div>
-          
-          <div>
-            <!-- left, stop and right button -->
-          <input style="font-size:XX;height:XX; width:XX;" type = "button" id = "leftbutton" value = "Left" />
-          <!-- add two more buttons here -->
-          </div>
-          
-          <div>
-          <!-- down button -->
-          <input style="font-size:XX;height:XX; width:XX;" type = "button" id = "XX" value = "XX" />
-          </div>
+      <div class="d-pad">
+         <div class="dpad-row">
+         <button id="upbutton" class="dpad-center-controls">Forward</button>
+         </div>
+         <div class="dpad-row">
+        <button id="leftbutton" value="Left" class="dpad-center">Left</button>
+        <button id="stopbutton" value="Stop" class="dpad-center">Stop</button>
+        <button id="rightbutton" value="Right"class="dpad-center">Right</button>
+        
+        </div>
+        <div class="dpad-row">
+        <button id="downbutton" value="Backward" class="dpad-center-controls">Backward</button>
       </div>
+      </div>
+    </div>
 
   </body>
 </html>
