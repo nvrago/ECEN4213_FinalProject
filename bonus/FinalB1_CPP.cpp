@@ -36,7 +36,6 @@ unsigned int button;
 char cmd = 's';
 
 void readData();
-
 int joystick_x(string); // this function can parse the received buffer and return the radius value
 int joystick_y(string); // this function can parse the received buffer and return the speed value
 
@@ -50,13 +49,15 @@ void read_socket(){
 		printf("received: %c\n",cmd);
 
 		// parse xpos and ypos from the buffer
-
+		string buffer_str(buffer);
+		int xpos = joystick_x(buffer_str);
+		int ypos = joystick_y(buffer_str);
 
 		// use xpos and ypos to control the robot movement
-
+		movement(ypos, xpos);
 		
 		//clean the buffer
-		
+		memset(buffer, 0, sizeof(buffer));
 	}
 	
 }
@@ -195,7 +196,7 @@ int joystick_x(string value){
 	int ind = value.find('x', 0)+5;
 	int ind2 = value.find("\'", ind);
 	string index = value.substr(ind,ind2-ind);
-	printf("%s\n", index);
+	printf("%s\n", index.c_str());
 	ind = -stoi(index);
 	if (ind>-20 && ind<20) ind = 0;
 

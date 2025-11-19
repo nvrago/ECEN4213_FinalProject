@@ -49,13 +49,15 @@ void read_socket(){
 		cmd = buffer[0];
 		printf("received: %c\n",cmd);
 		// parse sensor data from the buffer
-
+		string buffer_str(buffer);
+		int sp = speed(buffer_str);
+		int rad = radius(buffer_str);
 
 		// use the sensor data to control the robot movement
-
+		movement(sp, rad);
 		
 		//clean the buffer
-
+		memset(buffer, 0, sizeof(buffer));
 	}
 	
 }
@@ -194,7 +196,7 @@ int speed(string value){
 	int ind = value.find('x', 0)+5;
 	int ind2 = value.find("\'", ind);
 	string index = value.substr(ind,ind2-ind);
-	printf("%s\n", index);
+	printf("%s\n", index.c_str());
 	ind = -stoi(index);
 	// cout<<ind<<endl;
 	if (ind > 50)  ind = 50;
